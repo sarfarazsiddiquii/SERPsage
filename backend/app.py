@@ -22,7 +22,8 @@ def extract_links_from_sitemap(url):
         return None
 
 # Example usage:
-sitemap_url = "https://example.com/sitemap.xml"
+website_name = input("Enter the website name: ")
+sitemap_url = "https://" + website_name + "/sitemap.xml"
 sitemap_links = extract_links_from_sitemap(sitemap_url)
 if sitemap_links:
     print("Links in sitemap:")
