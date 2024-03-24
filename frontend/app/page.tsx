@@ -1,59 +1,56 @@
 "use client";
-import { useState } from 'react';
+
+import { use, useState, useEffect} from 'react';
 
 export default function Home() {
-  const [text, setText] = useState('');
-  const [sitemapLinks, setSitemapLinks] = useState([]);
+  const [inputText, setInputText] = useState('');
 
-  const handleSubmit = async () => {
-    try {
-      const response = await fetch('/generate-sitemap', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ url: text })
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputText(event.target.value);
+  };
+
+  const [apiData, setApiData] = useState<any>(null);
+
+  useEffect(() => {
+    fetch('http://localhost:8080/api/home')
+      .then(response => response.json())
+      .then(data => {
+        // Set the API data to the state
+        setApiData(data);
+      })
+      .catch(error => {
+        // Handle any errors
+        console.error(error);
       });
+  }, []);
 
-      if (response.ok) {
-        const data = await response.json();
-        const links = data.links;
-        setSitemapLinks(links);
-      } else {
-        console.error('Failed to fetch sitemap:', response.statusText);
-      }
-    } catch (error) {
-      console.error('An error occurred:', error);
-    }
+  // Render the API data on the screen
+
+
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // You can perform any action with the inputText here, for example, log it.
+    console.log(inputText);
   };
 
   return (
-    <main className="container">
-      <p className="heading">Hello World</p>
-      <div className="input-wrapper">
-        <div className="mb-4">
-          <input
-            type="text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            className="input"
-          />
+    <div>
+      <h1>Welcome to SERPsage !</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={inputText}
+          onChange={handleInputChange}
+          placeholder="Enter text here"
+        />
+        <button type="submit">Submit</button>
+      </form>
+      {apiData && (
+        <div>
+          <h2>API Data:</h2>
+          <pre>{JSON.stringify(apiData, null, 2)}</pre>
         </div>
-        <button
-          onClick={handleSubmit}
-          className="button"
-        >
-          Submit
-        </button>
-      </div>
-      <div className="sitemap-links">
-        <h2>Links in sitemap:</h2>
-        <ul>
-          {sitemapLinks.map((link, index) => (
-            <li key={index}>{link}</li>
-          ))}
-        </ul>
-      </div>
-    </main>
-  );
-}
+      )}
+    </div>
+  )};
