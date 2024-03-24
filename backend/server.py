@@ -50,3 +50,6 @@ if __name__ == "__main__":
 
 # the extracted links from the sitemap is stored in the list called sitemap_links
 # change the value of website_name to the website you want to extract the links from
+# todo next:
+    # 1. in frontend handle the submit button , when clicked then only return the data.
+    # 2. the data we provided in frontend folder should take that value as an input to website_name
