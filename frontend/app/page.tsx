@@ -1,12 +1,30 @@
-"use client"; 
+"use client";
 import { useState } from 'react';
 
 export default function Home() {
   const [text, setText] = useState('');
+  const [sitemapLinks, setSitemapLinks] = useState([]);
 
-  const handleSubmit = () => {
-    // Handle submit logic here
-    console.log(text);
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('/generate-sitemap', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ url: text })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const links = data.links;
+        setSitemapLinks(links);
+      } else {
+        console.error('Failed to fetch sitemap:', response.statusText);
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
   };
 
   return (
@@ -27,6 +45,14 @@ export default function Home() {
         >
           Submit
         </button>
+      </div>
+      <div className="sitemap-links">
+        <h2>Links in sitemap:</h2>
+        <ul>
+          {sitemapLinks.map((link, index) => (
+            <li key={index}>{link}</li>
+          ))}
+        </ul>
       </div>
     </main>
   );
