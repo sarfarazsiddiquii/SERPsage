@@ -1,37 +1,36 @@
 "use client";
-
-import { use, useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [inputText, setInputText] = useState('');
+  const [apiData, setApiData] = useState<any>(null);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(event.target.value);
   };
 
-  const [apiData, setApiData] = useState<any>(null);
-
-  useEffect(() => {
-    fetch('http://localhost:8080/api/home')
-      .then(response => response.json())
-      .then(data => {
-        // Set the API data to the state
-        setApiData(data);
-      })
-      .catch(error => {
-        // Handle any errors
-        console.error(error);
-      });
-  }, []);
-
-  // Render the API data on the screen
-
-
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // You can perform any action with the inputText here, for example, log it.
+    setSubmitted(true);
     console.log(inputText);
+    try {
+      const response = await fetch('http://localhost:8080/api/home', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ website_name: inputText }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setApiData(data);
+      } else {
+        console.error('Failed to fetch API data');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
@@ -42,15 +41,16 @@ export default function Home() {
           type="text"
           value={inputText}
           onChange={handleInputChange}
-          placeholder="Enter text here"
+          placeholder="Enter website name here"
         />
         <button type="submit">Submit</button>
       </form>
-      {apiData && (
+      {submitted && apiData && (
         <div>
           <h2>API Data:</h2>
           <pre>{JSON.stringify(apiData, null, 2)}</pre>
         </div>
       )}
     </div>
-  )};
+  );
+}

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import requests
 import xml.etree.ElementTree as ET
@@ -27,29 +27,17 @@ def extract_links_from_sitemap(url):
         return None
 
 # /api/home
-@app.route("/api/home", methods=['GET'])
+@app.route("/api/home", methods=['POST'])
 def return_home():
     global sitemap_links
+    data = request.json
+    website_name = data.get('website_name')
+    sitemap_url = "https://" + website_name + "/sitemap.xml"
+    sitemap_links = extract_links_from_sitemap(sitemap_url)
     return jsonify({
+        'message': 'Website name received and data extracted from sitemap.',
         'sitemap_links': sitemap_links,
     })
 
-# Example usage with example.com
-website_name = "website.com"
-sitemap_url = "https://" + website_name + "/sitemap.xml"
-sitemap_links = extract_links_from_sitemap(sitemap_url)
-
-# Check if sitemap_links is not None and is a list
-if sitemap_links and isinstance(sitemap_links, list):
-    # Now sitemap_links contains the extracted links from the sitemap
-    print("Extracted links from the sitemap:", sitemap_links)
-
 if __name__ == "__main__":
     app.run(debug=True, port=8080)
-
-
-# the extracted links from the sitemap is stored in the list called sitemap_links
-# change the value of website_name to the website you want to extract the links from
-# todo next:
-    # 1. in frontend handle the submit button , when clicked then only return the data.
-    # 2. the data we provided in frontend folder should take that value as an input to website_name
