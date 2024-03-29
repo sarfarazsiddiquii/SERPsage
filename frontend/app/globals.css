@@ -3,3 +3,11 @@ h1 {
   margin-bottom: 20px;
   margin-top: 0; /* Add this line to move the title to the top */
 }
+
+.output-container {
+  max-width: 600px; /* Adjust according to your design */
+  margin: 20px auto; /* Center the container */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

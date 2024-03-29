@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [inputText, setInputText] = useState('');
-  const [apiData, setApiData] = useState<any>(null);
+  const [apiData, setApiData] = useState<string>(''); 
   const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +23,7 @@ export default function Home() {
         body: JSON.stringify({ website_name: inputText }),
       });
       if (response.ok) {
-        const data = await response.json();
+        const data = await response.text(); 
         setApiData(data);
       } else {
         console.error('Failed to fetch API data');
@@ -46,9 +46,9 @@ export default function Home() {
         <button type="submit">Submit</button>
       </form>
       {submitted && apiData && (
-        <div>
+        <div className="output-container"> {}
           <h2>API Data:</h2>
-          <pre>{JSON.stringify(apiData, null, 2)}</pre>
+          <pre>{apiData}</pre>
         </div>
       )}
     </div>
