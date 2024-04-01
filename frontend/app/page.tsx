@@ -47,8 +47,9 @@ export default function Home() {
       </form>
       {submitted && apiData && (
         <div className="output-container"> {}
-          <h2>API Data:</h2>
+          <h2>The website has content around these titles</h2>
           <pre>{apiData}</pre>
+          <button className="learn-more-button">Button that will do something</button>
         </div>
       )}
     </div>

@@ -3,13 +3,19 @@ from flask_cors import CORS
 import requests
 import xml.etree.ElementTree as ET
 import google.generativeai as genai
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+apikey = os.getenv('API_KEY')
 
 # app instance
 app = Flask(__name__)
 CORS(app)
 
 #ai code
-genai.configure(api_key="AIzaSyAz6EFP9UX-lxKYS_pOlrmRNejs85UdBQw")
+genai.configure(api_key= apikey)
 generation_config = {
   "temperature": 0.9,
   "top_p": 1,
@@ -63,17 +69,16 @@ def extract_links_from_sitemap(url):
     except Exception as e:
         return None
 
-
-
+Aimesssage = "represent these links in readable format for better understanding, list them so i can read their titles. Also exclude all the links with extension of that of photos or any oother media. im just interested in the titles. make sure you print all the titles from these links in numbered list: "
 # /api/home
 @app.route("/api/home", methods=['POST'])
 def return_home():
     global sitemap_links
     data = request.json
     website_name = data.get('website_name')
-    sitemap_url = "https://" + website_name + "/sitemap.xml"
+    sitemap_url = "https://" + website_name + "/post-sitemap.xml"
     sitemap_links = extract_links_from_sitemap(sitemap_url)
-    convo.send_message("represent these links in readable format for better understanding, list them so i can read their titles " + str(sitemap_links))
+    convo.send_message(Aimesssage + str(sitemap_links))
     return convo.last.text
 
 if __name__ == "__main__":
