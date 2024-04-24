@@ -1,13 +1,55 @@
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  margin-top: 0; /* Add this line to move the title to the top */
+/* Resetting margins and padding */
+body, h1 {
+  margin: 0;
+  padding: 0;
 }
 
+/* Centering the form container */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 100px); /* Adjust as needed, considering header height */
+}
+
+/* Styling the header */
+.header {
+  background-color: #333; /* Dark color for header background */
+  color: #fff; /* White color for text */
+  text-align: center; /* Center align text */
+  padding: 20px 0; /* Add padding for better spacing */
+}
+
+/* Styling the h1 */
+.header h1 {
+  margin: 0; /* Remove default margin */
+}
+
+/* Styling the form input and button */
+.form-container input[type="text"],
+.form-container button[type="submit"] {
+  margin: 10px 0; /* Add some spacing */
+  border-radius: 25px; /* Add rounded corners */
+  padding: 15px 30px; /* Increase padding for larger size */
+  font-size: 18px; /* Increase font size */
+}
+
+/* Styling the output container */
 .output-container {
-  max-width: 600px; /* Adjust according to your design */
-  margin: 20px auto; /* Center the container */
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  margin-top: 20px; /* Add margin from the form */
+}
+
+/* Styling the learn more button */
+.learn-more-button {
+  margin-top: 10px; /* Add margin for better spacing */
+  background-color: #007bff; /* Blue color for button */
+  color: #fff; /* White color for text */
+  border: none; /* Remove default button border */
+  padding: 10px 20px; /* Add padding for better size */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+.learn-more-button:hover {
+  background-color: #0056b3; /* Darker blue color on hover */
 }

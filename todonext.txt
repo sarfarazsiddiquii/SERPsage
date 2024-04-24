@@ -1,0 +1,3 @@
+1. code around analyse button --> a new page with analysis options --> brainstorm.
+
+2. seprate css files and leave global.css

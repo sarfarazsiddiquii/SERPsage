@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [inputText, setInputText] = useState('');
-  const [apiData, setApiData] = useState<string>(''); 
+  const [apiData, setApiData] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +23,7 @@ export default function Home() {
         body: JSON.stringify({ website_name: inputText }),
       });
       if (response.ok) {
-        const data = await response.text(); 
+        const data = await response.text();
         setApiData(data);
       } else {
         console.error('Failed to fetch API data');
@@ -35,23 +35,27 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Welcome to SERPsage !</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={inputText}
-          onChange={handleInputChange}
-          placeholder="Enter website name here"
-        />
-        <button type="submit">Submit</button>
-      </form>
-      {submitted && apiData && (
-        <div className="output-container"> {}
-          <h2>The website has content around these titles</h2>
-          <pre>{apiData}</pre>
-          <button className="learn-more-button">Button that will do something</button>
-        </div>
-      )}
+      <div className="header">
+        <h1>Welcome to SERPsage !</h1>
+      </div>
+      <div className="form-container">
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={inputText}
+            onChange={handleInputChange}
+            placeholder="Enter website name here"
+          />
+          <button type="submit">Submit</button>
+        </form>
+        {submitted && apiData && (
+          <div className="output-container">
+            <h2>The website has content around these titles</h2>
+            <pre>{apiData}</pre>
+            <button className="learn-more-button">Analyse</button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
