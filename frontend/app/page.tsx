@@ -52,7 +52,7 @@ export default function Home() {
           <div className="output-container">
             <h2>The website has content around these titles</h2>
             <pre>{apiData}</pre>
-            <button className="learn-more-button">Analyse</button>
+            <button className="analyse">Analyse</button>
           </div>
         )}
       </div>
