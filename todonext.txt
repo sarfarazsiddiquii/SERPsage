@@ -1,8 +1,0 @@
-1. container for incoming links in home-page after submit button.
-limit to the links to show "+" option.
-
-2. code around analyse button --> a new page with analysis options --> brainstorm.
-    > history of links and the array of links sould pass on to that or accessable to that page.
-
-3. seprate css files and leave global.css
-

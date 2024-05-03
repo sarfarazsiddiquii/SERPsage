@@ -69,7 +69,7 @@ def extract_links_from_sitemap(url):
     except Exception as e:
         return None
 
-Aimesssage = "represent these links in readable format for better understanding, list them so i can read their titles. Also exclude all the links with extension of that of photos or any oother media. im just interested in the titles. make sure you print all the titles from these links in numbered list, if the entities are more than 25, just print the first 25 and write + (total links - 25) at the end"
+Aimesssage = "represent these links in readable format for better understanding, list them so i can read their titles. Also exclude all the links with extension of that of photos or any oother media. im just interested in the titles. make sure you print all the titles from these links in numbered list, if the entities are more than 25, just print the first 25 and write + more at the end"
 # /api/home
 @app.route("/api/home", methods=['POST'])
 def return_home():

@@ -1,5 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
+import Link from 'next/link'; 
+
 
 export default function Home() {
   const [inputText, setInputText] = useState('');
@@ -52,7 +54,9 @@ export default function Home() {
           <div className="output-container">
             <h2>The website has content around these titles</h2>
             <pre>{apiData}</pre>
-            <button className="analyse">Analyse</button>
+            <Link href={`/analysispage?website=${inputText}&data=${apiData}`}> 
+              Analyse
+            </Link>
           </div>
         )}
       </div>

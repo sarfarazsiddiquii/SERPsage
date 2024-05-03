@@ -1,0 +1,11 @@
+last change:
+code around analyse button --> a new page with analysis
+history of links and the array of links sould pass on to that or accessable to that page.
+
+todo next:
+loading in homepage
+button the analysis
+AI prompt and gpt errors check while generating sitemap links.
+structure the analyse page. -> brainstorm -> add features.
+seprate css files and leave global.css
+
